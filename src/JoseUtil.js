@@ -68,7 +68,9 @@ export class JoseUtil {
         }
 
         Log.info('JoseUtil._validateJwt: now: ' + now)
+        console.log('JoseUtil.js JoseUtil._validateJwt: now: ' + now)
         Log.info('JoseUtil._validateJwt: timeInsensitive: ' + timeInsensitive)
+        console.log('oseUtil.js JoseUtil._validateJwt: timeInsensitive: ' + timeInsensitive)
 
         if (!now) {
             now = parseInt(Date.now() / 1000);
