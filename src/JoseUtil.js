@@ -67,6 +67,9 @@ export class JoseUtil {
             clockSkew = 0;
         }
 
+        Log.info('JoseUtil._validateJwt: now: ' + now)
+        Log.info('JoseUtil._validateJwt: timeInsensitive: ' + timeInsensitive)
+
         if (!now) {
             now = parseInt(Date.now() / 1000);
         }
@@ -95,7 +98,7 @@ export class JoseUtil {
             Log.error("JoseUtil._validateJwt: Invalid azp in token", payload.azp);
             return Promise.reject(new Error("Invalid azp in token: " + payload.azp));
         }
-
+        
         if (!timeInsensitive) {
             var lowerNow = now + clockSkew;
             var upperNow = now - clockSkew;
