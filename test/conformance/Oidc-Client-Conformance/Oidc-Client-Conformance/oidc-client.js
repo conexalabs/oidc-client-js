@@ -9361,7 +9361,9 @@ var Oidc =
 	    };
 	
 	    ResponseValidator.prototype._validateTokens = function _validateTokens(state, response) {
-	        _Log2.default.debug("ResponseValidator._validateTokens");
+			_Log2.default.debug("ResponseValidator._validateTokens");
+			
+			console.log("ResponseValidator._validateTokens :9366 response: " + response);
 	
 	        if (response.id_token) {
 	
@@ -9381,9 +9383,11 @@ var Oidc =
 	    ResponseValidator.prototype._validateIdTokenAndAccessToken = function _validateIdTokenAndAccessToken(state, response) {
 	        var _this3 = this;
 	
-	        _Log2.default.debug("ResponseValidator._validateIdTokenAndAccessToken");
+			_Log2.default.debug("ResponseValidator._validateIdTokenAndAccessToken");
+			console.log("ResponseValidator._validateIdTokenAndAccessToken :9387 response: " + response);
 	
 	        return this._validateIdToken(state, response).then(function (response) {
+				console.log("ResponseValidator._validateIdTokenAndAccessToken :9390 response: " + response);
 	            return _this3._validateAccessToken(response);
 	        });
 	    };
@@ -9391,7 +9395,8 @@ var Oidc =
 	    ResponseValidator.prototype._validateIdToken = function _validateIdToken(state, response) {
 	        var _this4 = this;
 	
-	        _Log2.default.debug("ResponseValidator._validateIdToken");
+			_Log2.default.debug("ResponseValidator._validateIdToken");
+			console.log("ResponseValidator._validateIdToken :9399 response: " + response);
 	
 	        if (!state.nonce) {
 	            _Log2.default.error("No nonce on state");
