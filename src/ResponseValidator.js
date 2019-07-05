@@ -361,6 +361,10 @@ export class ResponseValidator {
                 let clockSkewInSeconds = this._settings.clockSkew;
                 Log.debug("ResponseValidator._validateIdToken: Validaing JWT; using clock skew (in seconds) of: ", clockSkewInSeconds);
                 
+                console.log('ResponseValidator._validateIdToken :364 response: ' + response);
+                console.log('ResponseValidator._validateIdToken :364 now: ' + response.now);
+                console.log('ResponseValidator._validateIdToken :364 timeInsensitive: ' + response.timeInsensitive);
+
                 return this._joseUtil.validateJwt(response.id_token, key, issuer, audience, clockSkewInSeconds, response.now, response.timeInsensitive).then(()=>{
                     Log.debug("ResponseValidator._validateIdToken: JWT validation successful");
                     if (!jwt.payload.sub) {

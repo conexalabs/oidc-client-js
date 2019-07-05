@@ -18174,6 +18174,9 @@ var JoseUtil = exports.JoseUtil = function () {
     JoseUtil.validateJwt = function validateJwt(jwt, key, issuer, audience, clockSkew, now, timeInsensitive) {
         _Log.Log.debug("JoseUtil.validateJwt");
 
+        console.log('oidc-client.js dist validateJwt now:' + now)
+        console.log('oidc-client.js dist validateJwt timeInsensitive:' + timeInsensitive)
+
         try {
             if (key.kty === "RSA") {
                 if (key.e && key.n) {
@@ -18275,7 +18278,8 @@ var JoseUtil = exports.JoseUtil = function () {
     };
 
     JoseUtil._validateJwt = function _validateJwt(jwt, key, issuer, audience, clockSkew, now, timeInsensitive) {
-
+        console.log('oidc-client dist 18281 _validateJwt now: ' + now);
+        console.log('oidc-client dist 18281 _validateJwt timeInsensitive: ' + timeInsensitive);
         return JoseUtil.validateJwtAttributes(jwt, issuer, audience, clockSkew, now, timeInsensitive).then(function (payload) {
             try {
                 if (!_jsrsasign.jws.JWS.verify(jwt, key, AllowedSigningAlgs)) {
