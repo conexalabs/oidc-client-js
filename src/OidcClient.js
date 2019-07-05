@@ -113,7 +113,7 @@ export class OidcClient {
 
         stateStore = stateStore || this._stateStore;
 
-        console.log("OidcClient.processSigninResponse :116 response: " + response);
+        console.log("OidcClient.processSigninResponse :116 response: " + JSON.stringify(response));
 
         return stateStore.remove(response.state).then(storedStateString => {
             if (!storedStateString) {
