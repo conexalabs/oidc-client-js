@@ -273,6 +273,9 @@ export class ResponseValidator {
             let clockSkewInSeconds = this._settings.clockSkew;
             let now = this._settings.now
             let timeInsensitive = this._settings.timeInsensitive
+            console.log('ResponseValidator _settings: ' + this._settings);
+            console.log('ResponseValidator now: ' + now);
+            console.log('ResponseValidator timeInsensitive: ' + timeInsensitive);
             Log.debug("ResponseValidator._validateIdTokenAttributes: Validaing JWT attributes; using clock skew (in seconds) of: ", clockSkewInSeconds);
 
             return this._joseUtil.validateJwtAttributes(response.id_token, issuer, audience, clockSkewInSeconds, now, timeInsensitive).then(payload => {

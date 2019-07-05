@@ -10024,10 +10024,8 @@ var Oidc =
 	        }
 	    };
 	
-	    JoseUtil._validateJwt = function _validateJwt(jwt, key, issuer, audience, clockSkew, now, timeInsensitive) {
-			_Log2.default.debug("JoseUtil._validateJwt");
-			Log.info('JoseUtil._validateJwt: now: ' + now);
-			Log.info('JoseUtil._validateJwt: timeInsensitive: ' + timeInsensitive);
+	    JoseUtil._validateJwt = function _validateJwt(jwt, key, issuer, audience, clockSkew, now) {
+	        _Log2.default.debug("JoseUtil._validateJwt");
 	
 	        if (!clockSkew) {
 	            clockSkew = 0;
@@ -10056,47 +10054,43 @@ var Oidc =
 	        if (!validAudience) {
 	            _Log2.default.error("Invalid audience in token", payload.aud);
 	            return Promise.reject(new Error("Invalid audience in token: " + payload.aud));
-			}
-			
-			if (!timeInsensitive) {
-				var lowerNow = now + clockSkew;
-				var upperNow = now - clockSkew;
-		
-				if (!payload.iat) {
-					_Log2.default.error("iat was not provided");
-					return Promise.reject(new Error("iat was not provided"));
-				}
-				if (lowerNow < payload.iat) {
-					_Log2.default.error("iat is in the future", payload.iat);
-					return Promise.reject(new Error("iat is in the future: " + payload.iat));
-				}
-		
-				if (payload.nbf && lowerNow < payload.nbf) {
-					_Log2.default.error("nbf is in the future", payload.nbf);
-					return Promise.reject(new Error("nbf is in the future: " + payload.nbf));
-				}
-		
-				if (!payload.exp) {
-					_Log2.default.error("exp was not provided");
-					return Promise.reject(new Error("exp was not provided"));
-				}
-				if (payload.exp < upperNow) {
-					_Log2.default.error("exp is in the past", payload.exp);
-					return Promise.reject(new Error("exp is in the past:" + payload.exp));
-				}
-		
-				try {
-					if (!_jsrsasign.jws.JWS.verify(jwt, key, AllowedSigningAlgs)) {
-						_Log2.default.error("signature validation failed");
-						return Promise.reject(new Error("signature validation failed"));
-					}
-				} catch (e) {
-					_Log2.default.error(e && e.message || e);
-					return Promise.reject(new Error("signature validation failed"));
-				}
-			}
+	        }
 	
-	        
+	        var lowerNow = now + clockSkew;
+	        var upperNow = now - clockSkew;
+	
+	        if (!payload.iat) {
+	            _Log2.default.error("iat was not provided");
+	            return Promise.reject(new Error("iat was not provided"));
+	        }
+	        if (lowerNow < payload.iat) {
+	            _Log2.default.error("iat is in the future", payload.iat);
+	            return Promise.reject(new Error("iat is in the future: " + payload.iat));
+	        }
+	
+	        if (payload.nbf && lowerNow < payload.nbf) {
+	            _Log2.default.error("nbf is in the future", payload.nbf);
+	            return Promise.reject(new Error("nbf is in the future: " + payload.nbf));
+	        }
+	
+	        if (!payload.exp) {
+	            _Log2.default.error("exp was not provided");
+	            return Promise.reject(new Error("exp was not provided"));
+	        }
+	        if (payload.exp < upperNow) {
+	            _Log2.default.error("exp is in the past", payload.exp);
+	            return Promise.reject(new Error("exp is in the past:" + payload.exp));
+	        }
+	
+	        try {
+	            if (!_jsrsasign.jws.JWS.verify(jwt, key, AllowedSigningAlgs)) {
+	                _Log2.default.error("signature validation failed");
+	                return Promise.reject(new Error("signature validation failed"));
+	            }
+	        } catch (e) {
+	            _Log2.default.error(e && e.message || e);
+	            return Promise.reject(new Error("signature validation failed"));
+	        }
 	
 	        return Promise.resolve();
 	    };
