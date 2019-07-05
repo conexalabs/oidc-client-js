@@ -67,9 +67,6 @@ export class JoseUtil {
             clockSkew = 0;
         }
 
-        Log.info('JoseUtil._validateJwt: now: ' + now)
-        Log.info('JoseUtil._validateJwt: timeInsensitive: ' + timeInsensitive)
-
         if (!now) {
             now = parseInt(Date.now() / 1000);
         }
@@ -131,7 +128,6 @@ export class JoseUtil {
     }
 
     static _validateJwt(jwt, key, issuer, audience, clockSkew, now, timeInsensitive) {
-
         return JoseUtil.validateJwtAttributes(jwt, issuer, audience, clockSkew, now, timeInsensitive).then(payload => {
             try {
                 if (!jws.JWS.verify(jwt, key, AllowedSigningAlgs)) {

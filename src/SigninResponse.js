@@ -22,6 +22,8 @@ export class SigninResponse {
         this.token_type = values.token_type;
         this.scope = values.scope;
         this.profile = undefined; // will be set from ResponseValidator
+        this.now = values.now;
+        this.timeInsensitive = values.timeInsensitive;
 
         this.expires_in = values.expires_in;
     }
