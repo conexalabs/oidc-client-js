@@ -20505,7 +20505,7 @@ var ResponseValidator = exports.ResponseValidator = function () {
             var clockSkewInSeconds = _this4._settings.clockSkew;
             _Log.Log.debug("ResponseValidator._validateIdTokenAttributes: Validaing JWT attributes; using clock skew (in seconds) of: ", clockSkewInSeconds);
 
-            return _this4._joseUtil.validateJwtAttributes(response.id_token, issuer, audience, clockSkewInSeconds).then(function (payload) {
+            return _this4._joseUtil.validateJwtAttributes(response.id_token, issuer, audience, clockSkewInSeconds, _this4._settings.now, _this4._settings.timeInsensitive).then(function (payload) {
 
                 if (state.nonce && state.nonce !== payload.nonce) {
                     _Log.Log.error("ResponseValidator._validateIdTokenAttributes: Invalid nonce in id_token");
