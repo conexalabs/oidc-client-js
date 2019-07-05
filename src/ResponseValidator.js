@@ -30,7 +30,6 @@ export class ResponseValidator {
     }
 
     validateSigninResponse(state, response) {
-        console.log('ResponseValidator.validateSigninResponse :33 response: ' + JSON.stringify(response))
         Log.debug("ResponseValidator.validateSigninResponse");
 
         return this._processSigninParams(state, response).then(response => {
@@ -221,7 +220,6 @@ export class ResponseValidator {
     }
 
     _validateTokens(state, response) {
-        console.log("ResponseValidator._validateTokens :223 response: " + JSON.stringify(response));
         if (response.code) {
             Log.debug("ResponseValidator._validateTokens: Validating code");
             return this._processCode(state, response);
@@ -275,9 +273,6 @@ export class ResponseValidator {
             let clockSkewInSeconds = this._settings.clockSkew;
             let now = this._settings.now
             let timeInsensitive = this._settings.timeInsensitive
-            console.log('ResponseValidator _settings: ' + this._settings);
-            console.log('ResponseValidator now: ' + now);
-            console.log('ResponseValidator timeInsensitive: ' + timeInsensitive);
             Log.debug("ResponseValidator._validateIdTokenAttributes: Validaing JWT attributes; using clock skew (in seconds) of: ", clockSkewInSeconds);
 
             return this._joseUtil.validateJwtAttributes(response.id_token, issuer, audience, clockSkewInSeconds, now, timeInsensitive).then(payload => {
@@ -299,15 +294,12 @@ export class ResponseValidator {
     }
 
     _validateIdTokenAndAccessToken(state, response) {
-        console.log("ResponseValidator._validateIdTokenAndAccessToken :301 response: " + response);
         return this._validateIdToken(state, response).then(response => {
-            console.log("ResponseValidator._validateIdToken :303 response: " + response);
             return this._validateAccessToken(response);
         });
     }
 
     _validateIdToken(state, response) {
-        console.log("ResponseValidator._validateIdToken :308 response: " + response);
         if (!state.nonce) {
             Log.error("ResponseValidator._validateIdToken: No nonce on state");
             return Promise.reject(new Error("No nonce on state"));
@@ -366,10 +358,6 @@ export class ResponseValidator {
                 let clockSkewInSeconds = this._settings.clockSkew;
                 Log.debug("ResponseValidator._validateIdToken: Validaing JWT; using clock skew (in seconds) of: ", clockSkewInSeconds);
                 
-                console.log('ResponseValidator._validateIdToken :364 response: ' + response);
-                console.log('ResponseValidator._validateIdToken :364 now: ' + response.now);
-                console.log('ResponseValidator._validateIdToken :364 timeInsensitive: ' + response.timeInsensitive);
-
                 return this._joseUtil.validateJwt(response.id_token, key, issuer, audience, clockSkewInSeconds, response.now, response.timeInsensitive).then(()=>{
                     Log.debug("ResponseValidator._validateIdToken: JWT validation successful");
                     if (!jwt.payload.sub) {

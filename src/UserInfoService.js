@@ -103,10 +103,6 @@ export class UserInfoService {
                     let clockSkewInSeconds = this._settings.clockSkew;
                     Log.debug("UserInfoService._getClaimsFromJwt: Validaing JWT; using clock skew (in seconds) of: ", clockSkewInSeconds);
 
-                    console.log('UserInfoService._getClaimsFromJwt :106 _settings: ' + this._settings);
-                    console.log('UserInfoService._getClaimsFromJwt :106 now: ' + this._settings.now);
-                    console.log('UserInfoService._getClaimsFromJwt :106 timeInsensitive: ' + this._settings.timeInsensitive);
-
                     return this._joseUtil.validateJwt(req.responseText, key, issuer, audience, clockSkewInSeconds, this._settings.now, this._settings.timeInsensitive).then(() => {
                         Log.debug("UserInfoService._getClaimsFromJwt: JWT validation successful");
                         return jwt.payload;

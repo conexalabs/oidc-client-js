@@ -26,9 +26,6 @@ export class JoseUtil {
     static validateJwt(jwt, key, issuer, audience, clockSkew, now, timeInsensitive) {
         Log.debug("JoseUtil.validateJwt");
 
-        console.log('JoseUtil validateJwt :29 now: ' + now);
-        console.log('JoseUtil validateJwt :29 timeInsensitive: ' + timeInsensitive);
-
         try {
             if (key.kty === "RSA") {
                 if (key.e && key.n) {
@@ -69,9 +66,6 @@ export class JoseUtil {
         if (!clockSkew) {
             clockSkew = 0;
         }
-
-        console.log('JoseUtil.js JoseUtil._validateJwt: now: ' + now)
-        console.log('JoseUtil.js JoseUtil._validateJwt: timeInsensitive: ' + timeInsensitive)
 
         if (!now) {
             now = parseInt(Date.now() / 1000);
@@ -134,8 +128,6 @@ export class JoseUtil {
     }
 
     static _validateJwt(jwt, key, issuer, audience, clockSkew, now, timeInsensitive) {
-        console.log('JoseUtil _validateJwt :137 now: ' + now);
-        console.log('JoseUtil _validateJwt :137 timeInsensitive: ' + timeInsensitive);
         return JoseUtil.validateJwtAttributes(jwt, issuer, audience, clockSkew, now, timeInsensitive).then(payload => {
             try {
                 if (!jws.JWS.verify(jwt, key, AllowedSigningAlgs)) {
