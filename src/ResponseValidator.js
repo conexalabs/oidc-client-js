@@ -30,6 +30,7 @@ export class ResponseValidator {
     }
 
     validateSigninResponse(state, response) {
+        console.log('ResponseValidator.validateSigninResponse :33 response: ' + JSON.stringify(response))
         Log.debug("ResponseValidator.validateSigninResponse");
 
         return this._processSigninParams(state, response).then(response => {
@@ -220,7 +221,7 @@ export class ResponseValidator {
     }
 
     _validateTokens(state, response) {
-        console.log("ResponseValidator._validateTokens :223 response: " + response);
+        console.log("ResponseValidator._validateTokens :223 response: " + JSON.stringify(response));
         if (response.code) {
             Log.debug("ResponseValidator._validateTokens: Validating code");
             return this._processCode(state, response);

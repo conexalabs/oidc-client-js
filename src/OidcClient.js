@@ -113,6 +113,8 @@ export class OidcClient {
 
         stateStore = stateStore || this._stateStore;
 
+        console.log("OidcClient.processSigninResponse :116 response: " + response);
+
         return stateStore.remove(response.state).then(storedStateString => {
             if (!storedStateString) {
                 Log.error("OidcClient.processSigninResponse: No matching state found in storage");
